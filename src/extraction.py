@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from typing import List
+import numpy as np
 
 
 def extract_text_from_file():
@@ -35,7 +36,7 @@ def extract_text_from_file():
                     if word_split[0][8] == "s":
                         number_position = number_position + 1
                     if word_split[0][number_position].isnumeric():
-                        new_line.append(("interest", word_split[1], int(word_split[0][number_position])))
+                        new_line.append(("interest", word_split[1], word_split[0][number_position]))
                     else:
                         if len(word_split) == 1:
                             # special case like MGMNP
@@ -70,14 +71,14 @@ def create_word_package(list_of_line, before: int, after: int, list_of_words_to_
                 for i in range(position_word + 1, after_position):
                     list_of_word.append(line[i][0])
 
-                list_of_package[0].append(list_of_word)
+                list_of_package[0].append(np.asarray(list_of_word, dtype=object))
                 list_of_package[1].append(word[2])
 
     return list_of_package
 
 
 def create_syntax_package(list_of_line, before: int, after: int):
-    list_of_package = [[],[]]
+    list_of_package = [[], []]
     for line in list_of_line:
         size_line = len(line)
         for position_word in range(len(line)):
@@ -93,7 +94,7 @@ def create_syntax_package(list_of_line, before: int, after: int):
                 for i in range(position_word + 1, after_position):
                     list_of_word.append(line[i][1])
 
-                list_of_package[0].append(list_of_word)
+                list_of_package[0].append(np.asarray(list_of_word, dtype=object))
                 list_of_package[1].append(word[2])
 
     return list_of_package
