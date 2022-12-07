@@ -54,7 +54,7 @@ def extract_text_from_file():
 
 
 def create_word_package(list_of_line, before: int, after: int, list_of_words_to_skip: List = []):
-    list_of_package = []
+    list_of_package = [[], []]
     for line in list_of_line:
         size_line = len(line)
         for position_word in range(len(line)):
@@ -70,13 +70,14 @@ def create_word_package(list_of_line, before: int, after: int, list_of_words_to_
                 for i in range(position_word + 1, after_position):
                     list_of_word.append(line[i][0])
 
-                list_of_package.append((list_of_word, word[2]))
+                list_of_package[0].append(list_of_word)
+                list_of_package[1].append(word[2])
 
     return list_of_package
 
 
 def create_syntax_package(list_of_line, before: int, after: int):
-    list_of_package = []
+    list_of_package = [[],[]]
     for line in list_of_line:
         size_line = len(line)
         for position_word in range(len(line)):
@@ -92,9 +93,7 @@ def create_syntax_package(list_of_line, before: int, after: int):
                 for i in range(position_word + 1, after_position):
                     list_of_word.append(line[i][1])
 
-                list_of_package.append((list_of_word, word[2]))
+                list_of_package[0].append(list_of_word)
+                list_of_package[1].append(word[2])
 
     return list_of_package
-
-if __name__ == '__main__':
-    extract_text_from_file()

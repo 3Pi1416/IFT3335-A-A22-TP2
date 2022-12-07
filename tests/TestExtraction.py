@@ -24,12 +24,15 @@ class TestExtraction(unittest.TestCase):
         extract = extract_text_from_file()
         test = create_word_package(extract, 2, 2)
 
-        self.assertGreater(len(test),1)
+        self.assertEqual(len(test[0]), 2368)
+        self.assertEqual(len(test[1]), 2368)
+        self.assertGreater(len(test[0][0]), 1)
 
     def test_create_syntax_package(self):
 
         extract = extract_text_from_file()
         test = create_syntax_package(extract, 2, 2)
 
-        self.assertGreater(len(test),1)
-
+        self.assertEqual(len(test[0]), 2368)
+        self.assertEqual(len(test[1]), 2368)
+        self.assertGreater(len(test[0][0]), 1)
