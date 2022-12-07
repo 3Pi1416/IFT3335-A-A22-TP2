@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import List
 
 
 def extract_text_from_file():
@@ -49,7 +50,29 @@ def extract_text_from_file():
                         new_line.append((word_split[0], word_split[1]))
 
         interest_text_extracted.append(new_line)
-    return  interest_text_extracted
+    return interest_text_extracted
+
+
+def create_word_package(list_of_line, before: int, after: int, list_of_words_to_skip: List = []):
+    list_of_package = []
+    for line in list_of_line:
+        size_line = len(line)
+        for position_word in range(len(line)):
+
+            word = line[position_word]
+            if len(word) == 3:
+                list_of_word = []
+                before_position = max(0, position_word - before)
+                after_position = min(size_line, position_word + after + 1)
+                for i in range(before_position, position_word):
+                    list_of_word.append(line[i][0])
+
+                for i in range(position_word + 1, after_position):
+                    list_of_word.append(line[i][0])
+
+                list_of_package.append((list_of_word, word[2]))
+
+    return list_of_package
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-from src.extraction import extract_text_from_file
+from src.extraction import extract_text_from_file, create_word_package
 
 import unittest
 
@@ -18,3 +18,11 @@ class TestExtraction(unittest.TestCase):
         self.assertEqual(test[4], 178)
         self.assertEqual(test[5], 500)
         self.assertEqual(test[6], 1252)
+
+    def test_create_word_package(self):
+
+        extract = extract_text_from_file()
+        test = create_word_package(extract, 2, 2)
+
+        self.assertGreater(len(test),1)
+
