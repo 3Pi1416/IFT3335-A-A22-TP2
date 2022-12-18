@@ -9,6 +9,7 @@ from bayes import bayes
 from decision_tree import decision_tree
 from random_forest import random_forest
 from svm import svm
+from mlp import mlp
 from extraction import extract_sentences_from_file, separate_sentences
 
 # Value of n for n-gram model
@@ -49,20 +50,12 @@ def analyse():
     # SVM
     svm(x_train_w, y_train_w, x_test_w, y_test_w, "words")
     svm(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
+    
+    # MLP
+    mlp(x_train_w, y_train_w, x_test_w, y_test_w, "words")
+    mlp(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
 
     return
-
-    # extract_from_text = extract_text_from_file()
-    # word_package = create_word_package(extract_from_text, 2, 2)
-    # syntax_package = create_syntax_package(extract_from_text, 2, 2)
-
-    # # need DOUM here
-    # new_for_test = [[],[]]
-    # for i in range(len(word_package[0])):
-    #     if len(word_package[0][i]) == 4 :
-    #         new_for_test[0].append(word_package[0][i])
-    #         new_for_test[1].append(word_package[1][i])
-
 
 
 if __name__ == '__main__':
