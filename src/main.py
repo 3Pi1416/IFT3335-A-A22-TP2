@@ -1,5 +1,4 @@
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import fetch_20newsgroups
 
 # Pour Hugo
 # from src.bayes import bayes
@@ -7,6 +6,7 @@ from sklearn.datasets import fetch_20newsgroups
 
 # Pour Doum
 from bayes import bayes
+from decision_tree import decision_tree
 from extraction import extract_text_from_file, create_word_package, create_syntax_package, extract_sentences_from_file, separate_sentences
 
 # Value of n for n-gram model
@@ -35,6 +35,11 @@ def analyse():
     # NAIVE BAYES
     bayes(x_train_w, y_train_w, x_test_w, y_test_w, "words")
     bayes(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
+    
+    # DECISION TREE
+    decision_tree(x_train_w, y_train_w, x_test_w, y_test_w, "words")
+    decision_tree(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
+
     return
 
     # extract_from_text = extract_text_from_file()
