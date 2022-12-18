@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from bayes import bayes
 from decision_tree import decision_tree
 from random_forest import random_forest
+from svm import svm
 from extraction import extract_sentences_from_file, separate_sentences
 
 # Value of n for n-gram model
@@ -44,6 +45,10 @@ def analyse():
     # RANDOM FOREST
     random_forest(x_train_w, y_train_w, x_test_w, y_test_w, "words")
     random_forest(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
+    
+    # SVM
+    svm(x_train_w, y_train_w, x_test_w, y_test_w, "words")
+    svm(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
 
     return
 
