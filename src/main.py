@@ -7,7 +7,8 @@ from sklearn.model_selection import train_test_split
 # Pour Doum
 from bayes import bayes
 from decision_tree import decision_tree
-from extraction import extract_text_from_file, create_word_package, create_syntax_package, extract_sentences_from_file, separate_sentences
+from random_forest import random_forest
+from extraction import extract_sentences_from_file, separate_sentences
 
 # Value of n for n-gram model
 ngram = 2
@@ -39,6 +40,10 @@ def analyse():
     # DECISION TREE
     decision_tree(x_train_w, y_train_w, x_test_w, y_test_w, "words")
     decision_tree(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
+    
+    # RANDOM FOREST
+    random_forest(x_train_w, y_train_w, x_test_w, y_test_w, "words")
+    random_forest(x_train_t, y_train_t, x_test_t, y_test_t, "pos tags")
 
     return
 
