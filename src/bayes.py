@@ -1,13 +1,18 @@
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import make_pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
 
 
-def bayes(x_train, y_train, x_test, y_test):
-    gnb = MultinomialNB()
+def bayes(x_train: list, y_train: list, x_test: list, y_test: list, context: str):
 
-    #f
-    gnb.fit(x_train, y_train)
-    y_pred = gnb.predict(x_test)
+    model = make_pipeline(TfidfVectorizer(), MultinomialNB())
+    model.fit(x_train, y_train)
 
+    y_pred = np.array(model.predict(x_test))
+    y_test = np.array(y_test)
 
-    # a changer !!!! TODO
-    print("Number of mislabeled points out of a total %d points : %d", (x_test.shape[0], (y_test != y_pred).sum()))
+    print("Naive Bayes for", context)
+    print("Total test data:", len(x_test))
+    print("Number of mislabeled senses:", str(sum(y_test != y_pred)))
+    print("-----------")
