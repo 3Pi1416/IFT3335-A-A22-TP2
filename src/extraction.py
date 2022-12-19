@@ -3,9 +3,11 @@ from pathlib import Path
 from typing import List
 import numpy as np
 from typing import Tuple
-# import nltk
 from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
+
+# Need to uncomment and run the first time it is used
+# import nltk
 # nltk.download('punkt')
 
 def extract_sentences_from_file() -> Tuple[list[str], list[str], list[str]]:
