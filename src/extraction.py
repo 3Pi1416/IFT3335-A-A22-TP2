@@ -3,6 +3,10 @@ from pathlib import Path
 from typing import List
 import numpy as np
 from typing import Tuple
+# import nltk
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+# nltk.download('punkt')
 
 def extract_sentences_from_file() -> Tuple[list[str], list[str], list[str]]:
     words, tags, senses = [], [], []
@@ -75,7 +79,50 @@ def separate_sentences(sentences_words: list[str],
 
     return ngrams_words, ngrams_tags
 
+
+def separate_sentences_words(sentences_words: list[str], 
+                       ngram: int) -> list[str]:
+
+    ngrams_words = []
+
+    for sentence_w in sentences_words:
+        ngram_words = []
+        words = sentence_w.split()
+
+        # Get the index of the "interest" occurence
+        if   "*interests" in words: interest = words.index("*interests")
+        elif "*interest"  in words: interest = words.index("*interest")
+        elif "interests"  in words: interest = words.index("interests")
+        elif "interest"   in words: interest = words.index("interest")
+        else:
+            ngrams_words.append([])
+            pass
+        
+        before_n = max(0, interest - ngram)
+        after_n  = min(len(words), interest + ngram + 1)
+
+        # Get the words and pos tags around the "interest" occurence
+        for index in range(before_n, after_n):
+            ngram_words.append(words[index])
+
+        ngrams_words.append(" ".join(ngram_words))
+
+    return ngrams_words
+
+def stem(sentences: list[str]) -> list[str]:
+    stemmed_words = []
+    porter = PorterStemmer()
+
+    for sentence in sentences:
+        words = word_tokenize(sentence)
+        stemmed_sentence = []
+        for word in words:
+            stemmed_sentence.append(porter.stem(word))
+        stemmed_words.append(" ".join(stemmed_sentence))
     
+    return stemmed_words
+
+
 def extract_text_from_file():
     cwd = Path(os.getcwd())
     interest_text_file = cwd.joinpath('interest.acl94.txt')

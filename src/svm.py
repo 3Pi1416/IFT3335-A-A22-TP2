@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 
 
-def svm(x_train: list, y_train: list, x_test: list, y_test: list, context: str):
+def svm(x_train: list, x_test: list, y_train: list, y_test: list):
 
     model = make_pipeline(TfidfVectorizer(), LinearSVC())
     model.fit(x_train, y_train)
@@ -12,7 +12,10 @@ def svm(x_train: list, y_train: list, x_test: list, y_test: list, context: str):
     y_pred = np.array(model.predict(x_test))
     y_test = np.array(y_test)
 
-    print("SVM for", context)
-    print("Total test data:", len(x_test))
-    print("Number of mislabeled senses:", str(sum(y_test != y_pred)))
-    print("-----------")
+    mislabeled = sum(y_test != y_pred)
+
+    print("SVM")
+    print("Number of mislabeled senses:", str(mislabeled))
+    print("% of mislabeled senses:", str(mislabeled / len(x_test) * 100))
+
+    return mislabeled
