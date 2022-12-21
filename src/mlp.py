@@ -6,9 +6,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 
 
-def mlp(x_train: list, x_test: list, y_train: list, y_test: list, ngram: int = 1, use_stoplist: bool = False, hls = (100,)) -> int:
+def mlp(x_train: list, x_test: list, y_train: list, y_test: list, ngram: int = 1, use_sl: bool = False, hls = (100,)) -> int:
 
-    if (use_stoplist):
+    if (use_sl):
         stoplist_file = Path(os.getcwd()).joinpath('stoplist-english.txt')
         with open(stoplist_file, mode='r') as f:
             stoplist_string = f.read()
@@ -27,4 +27,4 @@ def mlp(x_train: list, x_test: list, y_train: list, y_test: list, ngram: int = 1
     print("Number of mispredicted senses:", str(mispredicted))
     print("% of mispredicted senses:", str(mispredicted / len(x_test) * 100))
 
-    return mispredicted
+    return mispredicted / len(x_test) * 100

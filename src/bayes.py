@@ -7,9 +7,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-def bayes(x_train: list, x_test: list, y_train: list, y_test: list, ngram: int = 1, use_stoplist: bool = False) -> int:
+def bayes(x_train: list, x_test: list, y_train: list, y_test: list, ngram: int = 1, use_sl: bool = False) -> int:
     
-    if (use_stoplist):
+    if (use_sl):
         stoplist_file = Path(os.getcwd()).joinpath('stoplist-english.txt')
         with open(stoplist_file, mode='r') as f:
             stoplist_string = f.read()
@@ -28,4 +28,4 @@ def bayes(x_train: list, x_test: list, y_train: list, y_test: list, ngram: int =
     print("Number of mispredicted senses:", str(mispredicted))
     print("% of mispredicted senses:", str(mispredicted / len(x_test) * 100))
 
-    return mispredicted
+    return mispredicted / len(x_test) * 100

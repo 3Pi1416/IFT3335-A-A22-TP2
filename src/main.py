@@ -11,9 +11,9 @@ from mlp import mlp
 from extraction import extract_sentences_from_file, separate_sentences, separate_sentences_words, stem
 
 def analyse():
-    # --------------
-    # | EXTRACTION |
-    # --------------
+    # -----------------
+    # | PRETREATEMENT |
+    # -----------------
 
     # sentences_w: Array of whole sentences of words
     # sentences_t: Array of whole sentences of associated pos tags
@@ -91,341 +91,263 @@ def analyse():
     # # Evaluation of Naive Bayes in function of n-gram model and
     # # comparison between "words", "pos tags", "stemmed" and "stemmed and stoplist" contextual info
     # # Words
-    # bayes_1w = round(bayes(x_train_1w, x_test_1w, y_train_1w, y_test_1w) / len(x_test_w) * 100, 2)
-    # bayes_3w = round(bayes(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # bayes_5w = round(bayes(x_train_5w, x_test_5w, y_train_5w, y_test_5w) / len(x_test_w) * 100, 2)
-    # bayes_7w = round(bayes(x_train_7w, x_test_7w, y_train_7w, y_test_7w) / len(x_test_w) * 100, 2)
-    # bayes_w  = round(bayes(x_train_w, x_test_w, y_train_w, y_test_w) / len(x_test_w) * 100, 2)
+    # b_1w = bayes(x_train_1w, x_test_1w, y_train_1w, y_test_1w)
+    # b_3w = bayes(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # b_5w = bayes(x_train_5w, x_test_5w, y_train_5w, y_test_5w)
+    # b_7w = bayes(x_train_7w, x_test_7w, y_train_7w, y_test_7w)
+    # b_w  = bayes(x_train_w, x_test_w, y_train_w, y_test_w)
     # # POS tags
-    # bayes_1t = round(bayes(x_train_1t, x_test_1t, y_train_1t, y_test_1t, 1) / len(x_test_w) * 100, 2)
-    # bayes_3t = round(bayes(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # bayes_5t = round(bayes(x_train_5t, x_test_5t, y_train_5t, y_test_5t, 5) / len(x_test_w) * 100, 2)
-    # bayes_7t = round(bayes(x_train_7t, x_test_7t, y_train_7t, y_test_7t, 7) / len(x_test_w) * 100, 2)
-    # bayes_t  = round(bayes(x_train_t, x_test_t, y_train_t, y_test_t, 100) / len(x_test_w) * 100, 2)
+    # b_1t = bayes(x_train_1t, x_test_1t, y_train_1t, y_test_1t, 1)
+    # b_3t = bayes(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # b_5t = bayes(x_train_5t, x_test_5t, y_train_5t, y_test_5t, 5)
+    # b_7t = bayes(x_train_7t, x_test_7t, y_train_7t, y_test_7t, 7)
+    # b_t  = bayes(x_train_t, x_test_t, y_train_t, y_test_t, 100)
     # # Stemmed
-    # bayes_1s = round(bayes(x_train_1s, x_test_1s, y_train_1s, y_test_1s) / len(x_test_w) * 100, 2)
-    # bayes_3s = round(bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # bayes_5s = round(bayes(x_train_5s, x_test_5s, y_train_5s, y_test_5s) / len(x_test_w) * 100, 2)
-    # bayes_7s = round(bayes(x_train_7s, x_test_7s, y_train_7s, y_test_7s) / len(x_test_w) * 100, 2)
-    # bayes_s  = round(bayes(x_train_s, x_test_s, y_train_s, y_test_s) / len(x_test_w) * 100, 2)
+    # b_1s = bayes(x_train_1s, x_test_1s, y_train_1s, y_test_1s)
+    # b_3s = bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # b_5s = bayes(x_train_5s, x_test_5s, y_train_5s, y_test_5s)
+    # b_7s = bayes(x_train_7s, x_test_7s, y_train_7s, y_test_7s)
+    # b_s  = bayes(x_train_s, x_test_s, y_train_s, y_test_s)
     # # Stemmed and stoplist
-    # bayes_1ss = round(bayes(x_train_1s, x_test_1s, y_train_1s, y_test_1s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # bayes_3ss = round(bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # bayes_5ss = round(bayes(x_train_5s, x_test_5s, y_train_5s, y_test_5s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # bayes_7ss = round(bayes(x_train_7s, x_test_7s, y_train_7s, y_test_7s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # bayes_ss  = round(bayes(x_train_s, x_test_s, y_train_s, y_test_s, use_stoplist=True) / len(x_test_w) * 100, 2)
+    # b_1ss = bayes(x_train_1s, x_test_1s, y_train_1s, y_test_1s, use_sl=True)
+    # b_3ss = bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
+    # b_5ss = bayes(x_train_5s, x_test_5s, y_train_5s, y_test_5s, use_sl=True)
+    # b_7ss = bayes(x_train_7s, x_test_7s, y_train_7s, y_test_7s, use_sl=True)
+    # b_ss  = bayes(x_train_s, x_test_s, y_train_s, y_test_s, use_sl=True)
     
-    # g1_labels = ['1-gram', '3-gram', '5-gram', '7-gram', 'Complète']
-    # g1_words = [bayes_1w, bayes_3w, bayes_5w, bayes_7w, bayes_w]
-    # g1_tags = [bayes_1t, bayes_3t, bayes_5t, bayes_7t, bayes_t]
-    # g1_stemmed = [bayes_1s, bayes_3s, bayes_5s, bayes_7s, bayes_s]
-    # g1_stemmedstop = [bayes_1ss, bayes_3ss, bayes_5ss, bayes_7ss, bayes_ss]
-
-    # g1_x = np.arange(len(g1_labels))  # the label locations
-    # g1_width = 0.23  # the width of the bars
-
-    # g1_fig, g1_ax = plt.subplots()
-    # g1_rects_w = g1_ax.bar(g1_x - g1_width*1.5, g1_words, g1_width, label='Mots')
-    # g1_rects_t = g1_ax.bar(g1_x - g1_width/2, g1_tags, g1_width, label='Étiquettes') # POS tags
-    # g1_rects_s = g1_ax.bar(g1_x + g1_width/2, g1_stemmed, g1_width, label='Tronqués')
-    # g1_rects_ss = g1_ax.bar(g1_x + g1_width*1.5, g1_stemmedstop, g1_width, label='Tronqués,\nsans mots outils') # POS tags
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g1_ax.set_ylabel('Taux d\'erreur (%)')
-    # g1_ax.set_title('Taux d\'erreur de Naive Bayes selon\nl\'information contextuelle et n-gram')
-    # g1_ax.set_xticks(g1_x, g1_labels)
-    # g1_ax.legend()
-
-    # g1_ax.bar_label(g1_rects_w,  padding=3, fontsize="x-small")
-    # g1_ax.bar_label(g1_rects_t,  padding=3, fontsize="x-small")
-    # g1_ax.bar_label(g1_rects_s,  padding=3, fontsize="x-small")
-    # g1_ax.bar_label(g1_rects_ss, padding=3, fontsize="x-small")
-
-    # g1_fig.tight_layout()
-    # plt.show()
+    # g1_w = list(map(lambda w: round(w, 2), [b_1w, b_3w, b_5w, b_7w, b_w]))
+    # g1_t = list(map(lambda t: round(t, 2), [b_1t, b_3t, b_5t, b_7t, b_t]))
+    # g1_s = list(map(lambda s: round(s, 2), [b_1s, b_3s, b_5s, b_7s, b_s]))
+    # g1_ss = list(map(lambda ss: round(ss, 2), [b_1ss, b_3ss, b_5ss, b_7ss, b_ss]))
+    
+    # make_multi_graph([g1_w, g1_t, g1_s, g1_ss], 1)
 
 
     # # GRAPH #2
     # # Comparison of each algorithm on 3-gram model for "words" contextual info
-    # bayes_3w  = round(bayes(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # tree_3w   = round(decision_tree(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # forest_3w = round(random_forest(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # svm_3w    = round(svm(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # mlp_3w    = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-
-    # g2_labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
-    # g2_words = [bayes_3w, tree_3w, forest_3w, svm_3w, mlp_3w]
-
-    # g2_width = 0.35  # the width of the bars
-
-    # g2_fig, g2_ax = plt.subplots()
-    # g2_rects1 = g2_ax.bar(g2_labels, g2_words, g2_width)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g2_ax.set_ylabel('Taux d\'erreur (%)')
-    # g2_ax.set_title('Taux d\'erreur sur les mots comme information contextuelle\nde 3-grams selon l\'algorithme')
-    # g2_ax.bar_label(g2_rects1, padding=3)
+    # b_3w = bayes(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # t_3w = decision_tree(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # f_3w = random_forest(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # s_3w = svm(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # m_3w = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
     
-    # g2_fig.tight_layout()
-    # plt.show()
+    # g2_words = list(map(lambda w: round(w, 2), [b_3w, t_3w, f_3w, s_3w, m_3w]))
+
+    # make_graph(g2_words, 2)
+
     
     # # GRAPH #3
     # # Comparison of each algorithm on 3-gram model for "pos tags" contextual info
-    # bayes_3t  = round(bayes(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # tree_3t   = round(decision_tree(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # forest_3t = round(random_forest(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # svm_3t    = round(svm(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # mlp_3t    = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
+    # b_3t = bayes(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # t_3t = decision_tree(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # f_3t = random_forest(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # s_3t = svm(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # m_3t = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
     
-    # g3_labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
-    # g3_words = [bayes_3t, tree_3t, forest_3t, svm_3t, mlp_3t]
-    # bar_colors = ['tab:orange', 'tab:orange', 'tab:orange', 'tab:orange', 'tab:orange']
-
-    # g3_width = 0.35  # the width of the bars
-
-    # g3_fig, g3_ax = plt.subplots()
-    # g3_rects1 = g3_ax.bar(g3_labels, g3_words, g3_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g3_ax.set_ylabel('Taux d\'erreur (%)')
-    # g3_ax.set_title('Taux d\'erreur sur les étiquettes comme information contextuelle\nde 3-grams selon l\'algorithme')
-    # g3_ax.bar_label(g3_rects1, padding=3)
+    # g3_t = list(map(lambda t: round(t, 2), [b_3t, t_3t, f_3t, s_3t, m_3t]))
     
-    # g3_fig.tight_layout()
-    # plt.show()
+    # make_graph(g3_t, 3, "tab:orange")
+
     
     # # GRAPH #4
     # # Comparison of each algorithm on 3-gram model for "stemmed words" contextual info
-    # bayes_3s  = round(bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # tree_3s   = round(decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # forest_3s = round(random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # svm_3s    = round(svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # mlp_3s    = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
+    # b_3s = bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # t_3s = decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # f_3s = random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # s_3s = svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # m_3s = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
 
-    # g4_labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
-    # g4_words = [bayes_3s, tree_3s, forest_3s, svm_3s, mlp_3s]
-    # bar_colors = ['tab:green', 'tab:green', 'tab:green', 'tab:green', 'tab:green']
-
-    # g4_width = 0.35  # the width of the bars
-
-    # g4_fig, g4_ax = plt.subplots()
-    # g4_rects1 = g4_ax.bar(g4_labels, g4_words, g4_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g4_ax.set_ylabel('Taux d\'erreur (%)')
-    # g4_ax.set_title('Taux d\'erreur sur les mots tronqués comme information contextuelle\nde 3-grams selon l\'algorithme')
-    # g4_ax.bar_label(g4_rects1, padding=3)
+    # g4_s = list(map(lambda s: round(s, 2), [b_3s, t_3s, f_3s, s_3s, m_3s]))
     
-    # g4_fig.tight_layout()
-    # plt.show()
+    # make_graph(g4_s, 4, "tab:green")
 
     
     # # GRAPH #5
     # # Comparison of each algorithm on 3-gram model for "no stopwords" contextual info
-    # bayes_3ss  = round(bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # tree_3ss   = round(decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # forest_3ss = round(random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # svm_3ss    = round(svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-    # mlp_3ss    = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
+    # b_3ss = bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
+    # t_3ss = decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
+    # f_3ss = random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
+    # s_3ss = svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
+    # m_3ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
 
-    # g5_labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
-    # g5_words = [bayes_3ss, tree_3ss, forest_3ss, svm_3ss, mlp_3ss]
-    # bar_colors = ['tab:red', 'tab:red', 'tab:red', 'tab:red', 'tab:red']
-
-    # g5_width = 0.35  # the width of the bars
-
-    # g5_fig, g5_ax = plt.subplots()
-    # g5_rects1 = g5_ax.bar(g5_labels, g5_words, g5_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g5_ax.set_ylabel('Taux d\'erreur (%)')
-    # g5_ax.set_title('Taux d\'erreur sur les mots tronqués sans mots outils comme\ninformation contextuelle de 3-grams selon l\'algorithme')
-    # g5_ax.bar_label(g5_rects1, padding=3)
+    # g5_ss = list(map(lambda ss: round(ss, 2), [b_3ss, t_3ss, f_3ss, s_3ss, m_3ss]))
     
-    # g5_fig.tight_layout()
-    # plt.show()
+    # make_graph(g5_ss, 5, "tab:red")
+
 
     # # GRAPH #6
     # # Comparison of each contextual info on 3-gram model for Naive Bayes algorithm
-    # bayes_3w  = round(bayes(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # bayes_3t  = round(bayes(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # bayes_3s  = round(bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # bayes_3ss = round(bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
+    # b_3w  = bayes(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # b_3t  = bayes(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # b_3s  = bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # b_3ss = bayes(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
     
-    # g6_labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
-    # g6_words = [bayes_3w, bayes_3t, bayes_3s, bayes_3ss]
-    # # bar_colors = ['tab:red', 'tab:red', 'tab:red', 'tab:red']
-
-    # g6_width = 0.35  # the width of the bars
-
-    # g6_fig, g6_ax = plt.subplots()
-    # # g6_rects1 = g6_ax.bar(g6_labels, g6_words, g6_width, color=bar_colors)
-    # g6_rects1 = g6_ax.bar(g6_labels, g6_words, g6_width)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g6_ax.set_ylabel('Taux d\'erreur (%)')
-    # g6_ax.set_title('Taux d\'erreur de Naive Bayes 3-gram selon l\'information contextuelle')
-    # g6_ax.bar_label(g6_rects1, padding=3)
+    # g6_b = list(map(lambda b: round(b, 2), [b_3w, b_3t, b_3s, b_3ss]))
     
-    # g6_fig.tight_layout()
-    # plt.show()
+    # make_graph(g6_b, 6)
+
 
     # # GRAPH #7
     # # Comparison of each contextual info on 3-gram model for Decision tree algorithm
-    # tree_3w  = round(decision_tree(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # tree_3t  = round(decision_tree(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # tree_3s  = round(decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # tree_3ss = round(decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-
-    # g7_labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
-    # g7_words = [tree_3w, tree_3t, tree_3s, tree_3ss]
-    # bar_colors = ['tab:orange', 'tab:orange', 'tab:orange', 'tab:orange']
-
-    # g7_width = 0.35  # the width of the bars
-
-    # g7_fig, g7_ax = plt.subplots()
-    # g7_rects1 = g7_ax.bar(g7_labels, g7_words, g7_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g7_ax.set_ylabel('Taux d\'erreur (%)')
-    # g7_ax.set_title('Taux d\'erreur de l\'arbre de décision 3-gram selon\nl\'information contextuelle')
-    # g7_ax.bar_label(g7_rects1, padding=3)
+    # t_3w  = decision_tree(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # t_3t  = decision_tree(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # t_3s  = decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # t_3ss = decision_tree(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
     
-    # g7_fig.tight_layout()
-    # plt.show()
+    # g7_t = list(map(lambda t: round(t, 2), [t_3w, t_3t, t_3s, t_3ss]))
+    
+    # make_graph(g7_t, 7, "tab:orange")
 
 
     # # GRAPH #8
     # # Comparison of each contextual info on 3-gram model for Random forest algorithm
-    # forest_3w  = round(random_forest(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # forest_3t  = round(random_forest(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # forest_3s  = round(random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # forest_3ss = round(random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
-
-    # g8_labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
-    # g8_words = [forest_3w, forest_3t, forest_3s, forest_3ss]
-    # bar_colors = ['tab:green', 'tab:green', 'tab:green', 'tab:green']
-
-    # g8_width = 0.35  # the width of the bars
-
-    # g8_fig, g8_ax = plt.subplots()
-    # g8_rects1 = g8_ax.bar(g8_labels, g8_words, g8_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g8_ax.set_ylabel('Taux d\'erreur (%)')
-    # g8_ax.set_title('Taux d\'erreur de la forêt aléatoire 3-gram selon\nl\'information contextuelle')
-    # g8_ax.bar_label(g8_rects1, padding=3)
+    # f_3w  = random_forest(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # f_3t  = random_forest(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # f_3s  = random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # f_3ss = random_forest(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
     
-    # g8_fig.tight_layout()
-    # plt.show()
+    # g8_f = list(map(lambda f: round(f, 2), [f_3w, f_3t, f_3s, f_3ss]))
+    
+    # make_graph(g8_f, 8, "tab:green")
+
 
     # # GRAPH #9
     # # Comparison of each contextual info on 3-gram model for SVM algorithm
-    # svm_3w  = round(svm(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # svm_3t  = round(svm(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # svm_3s  = round(svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # svm_3ss = round(svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
+    # s_3w  = svm(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # s_3t  = svm(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # s_3s  = svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # s_3ss = svm(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
 
-    # g9_labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
-    # g9_words = [svm_3w, svm_3t, svm_3s, svm_3ss]
-    # bar_colors = ['tab:red', 'tab:red', 'tab:red', 'tab:red']
-
-    # g9_width = 0.35  # the width of the bars
-
-    # g9_fig, g9_ax = plt.subplots()
-    # g9_rects1 = g9_ax.bar(g9_labels, g9_words, g9_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g9_ax.set_ylabel('Taux d\'erreur (%)')
-    # g9_ax.set_title('Taux d\'erreur du SVM 3-gram selon l\'information contextuelle')
-    # g9_ax.bar_label(g9_rects1, padding=3)
+    # g9_s = list(map(lambda s: round(s, 2), [s_3w, s_3t, s_3s, s_3ss]))
     
-    # g9_fig.tight_layout()
-    # plt.show()
+    # make_graph(g9_s, 9, "tab:red")
 
 
     # # GRAPH #10
     # # Comparison of each contextual info on 3-gram model for MLP algorithm
-    # mlp_3w  = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w) / len(x_test_w) * 100, 2)
-    # mlp_3t  = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3) / len(x_test_w) * 100, 2)
-    # mlp_3s  = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s) / len(x_test_w) * 100, 2)
-    # mlp_3ss = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True) / len(x_test_w) * 100, 2)
+    # m_3w  = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w)
+    # m_3t  = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3)
+    # m_3s  = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s)
+    # m_3ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True)
     
-    # g10_labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
-    # g10_words = [mlp_3w, mlp_3t, mlp_3s, mlp_3ss]
-    # bar_colors = ['tab:purple', 'tab:purple', 'tab:purple', 'tab:purple']
+    # g10_m = list(map(lambda m: round(m, 2), [m_3w, m_3t, m_3s, m_3ss]))
 
-    # g10_width = 0.35  # the width of the bars
-
-    # g10_fig, g10_ax = plt.subplots()
-    # g10_rects1 = g10_ax.bar(g10_labels, g10_words, g10_width, color=bar_colors)
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g10_ax.set_ylabel('Taux d\'erreur (%)')
-    # g10_ax.set_title('Taux d\'erreur du MLP 3-gram selon l\'information contextuelle')
-    # g10_ax.bar_label(g10_rects1, padding=3)
-    
-    # g10_fig.tight_layout()
-    # plt.show()
+    # make_graph(g10_m, 10, "tab:purple")
 
 
     # # GRAPH #11
     # # Comparison of different number of hidden layer neurons on 3-gram model for MLP algorithm
     # # Words
-    # mlp_020w = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(20 ,)) / len(x_test_w) * 100, 2)
-    # mlp_050w = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(50 ,)) / len(x_test_w) * 100, 2)
-    # mlp_100w = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(100,)) / len(x_test_w) * 100, 2)
-    # mlp_150w = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(150,)) / len(x_test_w) * 100, 2)
-    # mlp_200w = round(mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(200,)) / len(x_test_w) * 100, 2)
+    # mlp_020w = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(20 ,))
+    # mlp_050w = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(50 ,))
+    # mlp_100w = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(100,))
+    # mlp_150w = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(150,))
+    # mlp_200w = mlp(x_train_3w, x_test_3w, y_train_3w, y_test_3w, hls=(200,))
     # # POS tags
-    # mlp_020t = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(20 ,)) / len(x_test_w) * 100, 2)
-    # mlp_050t = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(50 ,)) / len(x_test_w) * 100, 2)
-    # mlp_100t = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(100,)) / len(x_test_w) * 100, 2)
-    # mlp_150t = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(150,)) / len(x_test_w) * 100, 2)
-    # mlp_200t = round(mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(200,)) / len(x_test_w) * 100, 2)
+    # mlp_020t = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(20 ,))
+    # mlp_050t = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(50 ,))
+    # mlp_100t = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(100,))
+    # mlp_150t = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(150,))
+    # mlp_200t = mlp(x_train_3t, x_test_3t, y_train_3t, y_test_3t, 3, hls=(200,))
     # # Stemmed
-    # mlp_020s = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(20 ,)) / len(x_test_w) * 100, 2)
-    # mlp_050s = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(50 ,)) / len(x_test_w) * 100, 2)
-    # mlp_100s = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(100,)) / len(x_test_w) * 100, 2)
-    # mlp_150s = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(150,)) / len(x_test_w) * 100, 2)
-    # mlp_200s = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(200,)) / len(x_test_w) * 100, 2)
+    # mlp_020s = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(20 ,))
+    # mlp_050s = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(50 ,))
+    # mlp_100s = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(100,))
+    # mlp_150s = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(150,))
+    # mlp_200s = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, hls=(200,))
     # # Stemmed and stoplist
-    # mlp_020ss = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True, hls=(20 ,)) / len(x_test_w) * 100, 2)
-    # mlp_050ss = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True, hls=(50 ,)) / len(x_test_w) * 100, 2)
-    # mlp_100ss = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True, hls=(100,)) / len(x_test_w) * 100, 2)
-    # mlp_150ss = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True, hls=(150,)) / len(x_test_w) * 100, 2)
-    # mlp_200ss = round(mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_stoplist=True, hls=(200,)) / len(x_test_w) * 100, 2)
+    # mlp_020ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True, hls=(20 ,))
+    # mlp_050ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True, hls=(50 ,))
+    # mlp_100ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True, hls=(100,))
+    # mlp_150ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True, hls=(150,))
+    # mlp_200ss = mlp(x_train_3s, x_test_3s, y_train_3s, y_test_3s, use_sl=True, hls=(200,))
 
-    # g11_labels = ['20', '50', '100', '150', '200']
-    # g11_words = [mlp_020w, mlp_050w, mlp_100w, mlp_150w, mlp_200w]
-    # g11_tags = [mlp_020t, mlp_050t, mlp_100t, mlp_150t, mlp_200t]
-    # g11_stemmed = [mlp_020s, mlp_050s, mlp_100s, mlp_150s, mlp_200s]
-    # g11_stemmedstop = [mlp_020ss, mlp_050ss, mlp_100ss, mlp_150ss, mlp_200ss]
+    # g11_w = list(map(lambda w: round(w, 2), [mlp_020w, mlp_050w, mlp_100w, mlp_150w, mlp_200w]))
+    # g11_t = list(map(lambda t: round(t, 2), [mlp_020t, mlp_050t, mlp_100t, mlp_150t, mlp_200t]))
+    # g11_s = list(map(lambda s: round(s, 2), [mlp_020s, mlp_050s, mlp_100s, mlp_150s, mlp_200s]))
+    # g11_ss = list(map(lambda ss: round(ss, 2), [mlp_020ss, mlp_050ss, mlp_100ss, mlp_150ss, mlp_200ss]))
 
-    # g11_x = np.arange(len(g11_labels))  # the label locations
-    # g11_width = 0.23  # the width of the bars
-
-    # g11_fig, g11_ax = plt.subplots()
-    # g11_rects_w = g11_ax.bar(g11_x - g11_width*1.5, g11_words, g11_width, label='Mots')
-    # g11_rects_t = g11_ax.bar(g11_x - g11_width/2, g11_tags, g11_width, label='Étiquettes') # POS tags
-    # g11_rects_s = g11_ax.bar(g11_x + g11_width/2, g11_stemmed, g11_width, label='Tronqués')
-    # g11_rects_ss = g11_ax.bar(g11_x + g11_width*1.5, g11_stemmedstop, g11_width, label='Tronqués,\nsans mots outils') # POS tags
-
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # g11_ax.set_ylabel('Taux d\'erreur (%)')
-    # g11_ax.set_title('Taux d\'erreur du MLP selon l\'information contextuelle\net le nombre de neurones cachés')
-    # g11_ax.set_xticks(g11_x, g11_labels)
-    # g11_ax.legend()
-
-    # g11_ax.bar_label(g11_rects_w,  padding=3, fontsize="x-small")
-    # g11_ax.bar_label(g11_rects_t,  padding=3, fontsize="x-small")
-    # g11_ax.bar_label(g11_rects_s,  padding=3, fontsize="x-small")
-    # g11_ax.bar_label(g11_rects_ss, padding=3, fontsize="x-small")
-
-    # g11_fig.tight_layout()
-    # plt.show()
+    # make_multi_graph([g11_w, g11_t, g11_s, g11_ss], 11)
 
     return
+
+def make_graph(graph_data: list[int], graph_nbr: int = 2, bar_colors: str = "tab:blue"):
+    match graph_nbr:
+        case 2:
+            labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
+            title = "Taux d\'erreur sur les mots comme information contextuelle\nde 3-grams selon l\'algorithme"
+        case 3:
+            labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
+            title = "Taux d\'erreur sur les étiquettes comme information contextuelle\nde 3-grams selon l\'algorithme"
+        case 4:
+            labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
+            title = "Taux d\'erreur sur les mots tronqués comme information contextuelle\nde 3-grams selon l\'algorithme"
+        case 5:
+            labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
+            title = "Taux d\'erreur sur les mots tronqués sans mots outils comme\ninformation contextuelle de 3-grams selon l\'algorithme"
+        case 6:
+            labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
+            title = "Taux d\'erreur de Naive Bayes 3-gram selon l\'information contextuelle"
+        case 7:
+            labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
+            title = "Taux d\'erreur de l\'arbre de décision 3-gram selon\nl\'information contextuelle"
+        case 8:
+            labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
+            title = "Taux d\'erreur de la forêt aléatoire 3-gram selon\nl\'information contextuelle"
+        case 9:
+            labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
+            title = "Taux d\'erreur du SVM 3-gram selon l\'information contextuelle"
+        case 10:
+            labels = ['Mots', 'Catégories', 'Mots tronqués', 'Mots tronqués\nsans mots outils']
+            title = "Taux d\'erreur du MLP 3-gram selon l\'information contextuelle"
+        case _:
+            labels = ['Naive Bayes', 'Arbre décision', 'Forêt aléatoire', 'SVM', 'MLP']
+            title = "Taux d\'erreur sur les mots comme information contextuelle\nde 3-grams selon l\'algorithme"
+
+    width = 0.35  # the width of the bars
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(labels, graph_data, width, color=bar_colors)
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_ylabel('Taux d\'erreur (%)')
+    ax.set_title(title)
+    ax.bar_label(rects1, padding=3)
+    
+    fig.tight_layout()
+    plt.show()
+
+def make_multi_graph(graph_data: list[list[int]], graph_nbr: int = 1):
+
+    if graph_nbr == 1:
+        labels = ['1-gram', '3-gram', '5-gram', '7-gram', 'Complète']
+        title = "Taux d\'erreur de Naive Bayes selon\nl\'information contextuelle et n-gram"
+    else: 
+        labels = ['20', '50', '100', '150', '200']
+        title = "Taux d\'erreur du MLP selon l\'information contextuelle\net le nombre de neurones cachés"
+
+    g_x = np.arange(len(labels))  # the label locations
+    g_width = 0.23  # the width of the bars
+
+    g_fig, g_ax = plt.subplots()
+    g_rects_w = g_ax.bar(g_x - g_width*1.5, graph_data[0], g_width, label='Mots')
+    g_rects_t = g_ax.bar(g_x - g_width/2, graph_data[1], g_width, label='Étiquettes')
+    g_rects_s = g_ax.bar(g_x + g_width/2, graph_data[2], g_width, label='Tronqués')
+    g_rects_ss = g_ax.bar(g_x + g_width*1.5, graph_data[3], g_width, label='Tronqués,\nsans mots outils')
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    g_ax.set_ylabel('Taux d\'erreur (%)')
+    g_ax.set_title(title)
+    g_ax.set_xticks(g_x, labels)
+    g_ax.legend()
+
+    g_ax.bar_label(g_rects_w,  padding=3, fontsize="x-small")
+    g_ax.bar_label(g_rects_t,  padding=3, fontsize="x-small")
+    g_ax.bar_label(g_rects_s,  padding=3, fontsize="x-small")
+    g_ax.bar_label(g_rects_ss, padding=3, fontsize="x-small")
+
+    g_fig.tight_layout()
+    plt.show()
 
 
 if __name__ == '__main__':
